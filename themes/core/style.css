@@ -1,0 +1,126 @@
+@import url(http://fonts.googleapis.com/css?family=Russo+One);
+
+html { 
+	overflow-y: scroll; 
+	color: #3E454C;
+}
+body {
+	background-image: url('../img/whitewall.png');
+	background-attachment: fixed;
+}
+
+body a{
+	text-decoration: none;
+}
+
+header#top,
+div#content,
+footer#bottom {
+	margin: 0 auto;
+	width: 950px;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Russo One', sans-serif;
+}
+
+/*---Header---*/
+header#above {
+	border-bottom: 1px solid black;
+	background: #7ECEFD;
+	margin-bottom: 1.5em;
+}
+
+nav#abovemenu {
+	padding: 0 1em 0 1em;
+	margin-top: -5px;
+}
+
+nav#abovemenu a {
+	color: #3E454C;
+	font-size: 70%;
+}
+
+nav#abovemenu a:hover {
+	color: #FFF6E5;
+}
+
+header#top {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	overflow: auto;
+}
+
+nav#navmenu {
+	margin-left: 1em;
+}
+
+nav#navmenu a {
+	font-family: 'Russo One', sans-serif;
+	color: #3E454C;
+	margin-left: 0.3em;
+}
+
+nav#navmenu a:hover {
+	color: #7ECEFD;
+}
+
+
+
+p#title {
+	font-size: 200%;
+	margin: 0;
+	font-family: 'Russo One', sans-serif;
+}
+
+/*---Content---*/
+div#content {
+	margin: 1em auto 1em auto;
+	border: 1px solid black;
+	box-shadow: 5px 5px 15px #C9C9C9;
+	border-radius: 4px;
+	background: #FFFFFF;
+}
+
+article#main {
+	padding: 1em;
+}
+
+pre {
+	font-size: 11px;
+	word-wrap: break-word;
+}
+
+article#entry {
+	border: 1px dotted #C9C9C9;
+	padding: 0.5em;
+}
+
+div.info {
+	border: 1px dotted black;
+	background: green;
+	color: white;
+	padding: 1em;
+}
+
+
+/*---Footer---*/
+footer#bottom {
+	text-align: center;
+	font-size: smaller;
+}
+
+footer#bottom a{
+	color: #3E454C;
+	margin-left: 0.3em;
+}
+
+footer#bottom a:hover {
+	color: #7ECEFD;
+}
+
+/*---Other stuff---*/
+.left {float: left; }
+.right {float: right }
