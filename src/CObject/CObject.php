@@ -9,14 +9,17 @@ class CObject {
 	public $views;
 	public $session;	
 	
-	protected function __construct() {
-		$jr = CJrnek::Instance();
+	protected function __construct($jr = null) {
+		if(!$jr) {
+			$jr = CJrnek::Instance();
+		}
 		$this->config = &$jr->config;
 		$this->request = &$jr->request;
 		$this->data = &$jr->data;
 		$this->db = &$jr->db;
 		$this->views = &$jr->views;
 		$this->session = &$jr->session;
+		$this->user     = &$jr->user;
 	}
 	
 	protected function RedirectTo($url) {

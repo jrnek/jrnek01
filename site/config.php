@@ -12,6 +12,8 @@
 		'index' => array('enabled' => true, 'class' =>  'CCIndex'), 
 		'developer' => array('enabled' => true,'class' => 'CCDeveloper'),
 		'guestbook' => array('enabled' => true, 'class' => 'CCGuestbook'),
+		'user' => array('enabled' => true, 'class' => 'CCUser'),
+		'acp' => array('enabled' => true, 'class' => 'CCAdminControlPanel'),
 	);
 	
 	$jr->config['theme'] = array(
@@ -43,5 +45,10 @@
 	$jr->config['debug']['jrnek'] = false;
 	$jr->config['debug']['db-num-queries'] = true;
 	$jr->config['debug']['db-queries'] = true;
+	
+	//Set hashing alogrithm: plain, md5salt, md5, sha1salt, sha1.
+	$jr->config['hashing_algorithm'] = 'sha1salt';
+	
+	$jr->config['create_new_users'] = true;
 	
 	

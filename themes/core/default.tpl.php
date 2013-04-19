@@ -6,6 +6,14 @@
 	<link rel="stylesheet" href="<?=$stylesheet?>">
 </head>
 <body>
+<header id="above">
+	<nav id="abovemenu"> 
+		<?=getMainNav()?>
+		<span class="right">
+			<?=login_menu()?>
+		</span>
+	</nav>
+</header> 
 <header id="top">
 	<?=$header?>
 </header>

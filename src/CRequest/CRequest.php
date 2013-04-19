@@ -70,7 +70,7 @@ class CRequest {
 		return $url;
 	}
 	
-	public function CreateUrl($url=null, $method=null) {
+	public function CreateUrl($url=null, $method=null, $args=null) {
     	if(!empty($url) && (strpos($url, '://') || $url[0] == '/')) {
 			return $url;
 		}
@@ -87,6 +87,10 @@ class CRequest {
 		} else {
 			$prepend .= 'index.php/';
 		}
-		return $prepend . rtrim("$url/$method", '/');
+		if($args == null) {
+			return $prepend . rtrim("$url/$method", '/');
+		} else {
+			return $prepend . rtrim("$url/$method/$args", '/');
+		}
   }
 }

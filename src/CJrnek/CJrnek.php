@@ -26,10 +26,13 @@ class CJrnek implements ISingelton {
 		$this->session = new CSession($this->config['session_key']);
 		$this->session->PopulateFromSession();
 		
+		date_default_timezone_set($this->config['timezone']);
+		
 		if(isset($this->config['database'][0]['dsn'])){
 			$this->db = new CMDatabase($this->config['database'][0]['dsn']);
 		}
 		$this->views = new CViewContainer();
+		$this->user = new CMUser($this);
 	}
 
 	public function FrontControllerRoute() {

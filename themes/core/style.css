@@ -3,14 +3,21 @@
 html { 
 	overflow-y: scroll; 
 	color: #3E454C;
+	margin: 0 auto
 }
 body {
-	background-image: url('../img/whitewall.png');
+	background-image: url('../../img/whitewall.png');
 	background-attachment: fixed;
+	margin: 0 auto;
 }
 
 body a{
 	text-decoration: none;
+	color: #3E454C;
+}
+
+body a:hover {
+	color: #7ECEFD;
 }
 
 header#top,
@@ -94,8 +101,9 @@ pre {
 }
 
 article#entry {
-	border: 1px dotted #C9C9C9;
+	border: 1px solid black;
 	padding: 0.5em;
+	background: rgba(126, 206, 253, 0.2);
 }
 
 div.info {
@@ -103,6 +111,21 @@ div.info {
 	background: green;
 	color: white;
 	padding: 1em;
+}
+
+.error {
+	border: 1px dotted black;
+	background: red;
+	color: white;
+	padding: 1em;
+}
+
+.validation-failed{
+	border:2px solid red;
+}
+
+.validation-message{
+	color:red;font-size:smaller;
 }
 
 
