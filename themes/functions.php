@@ -50,6 +50,10 @@ function create_url($urlOrController=null, $method=null, $arguments=null) {
   return CJrnek::Instance()->request->CreateUrl($urlOrController, $method, $arguments);
 }
 
+function filter_data($data, $filter) {
+	return CMContent::Filter($data, $filter);
+}
+
 function login_menu() {
 	$jr = CJrnek::Instance();
 	$items ="";

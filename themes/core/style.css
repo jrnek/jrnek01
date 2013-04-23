@@ -12,7 +12,6 @@ body {
 }
 
 body a{
-	text-decoration: none;
 	color: #3E454C;
 }
 
@@ -48,6 +47,7 @@ nav#abovemenu {
 nav#abovemenu a {
 	color: #3E454C;
 	font-size: 70%;
+	text-decoration: none
 }
 
 nav#abovemenu a:hover {
@@ -104,6 +104,8 @@ article#entry {
 	border: 1px solid black;
 	padding: 0.5em;
 	background: rgba(126, 206, 253, 0.2);
+	margin-bottom: 1em;
+	overflow: auto;
 }
 
 div.info {
@@ -113,6 +115,12 @@ div.info {
 	padding: 1em;
 }
 
+div.success {
+	border: 1px dotted black;
+	background: green;
+	color: white;
+	padding: 1em;
+}
 .error {
 	border: 1px dotted black;
 	background: red;
@@ -126,6 +134,11 @@ div.info {
 
 .validation-message{
 	color:red;font-size:smaller;
+}
+
+textarea{
+min-height: 400px;
+min-width: 300px;
 }
 
 

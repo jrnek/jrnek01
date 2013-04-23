@@ -12,15 +12,24 @@ class CRequest {
 	public function Init($baseUrl = null) {
 		$requestUri = $_SERVER['REQUEST_URI'];
 		$scriptName = $_SERVER['SCRIPT_NAME'];    
-
-		// Compare REQUEST_URI and SCRIPT_NAME as long they match, leave the rest as current request.
-		$i=0;
-		$len = min(strlen($requestUri), strlen($scriptName));
-		while($i<$len && $requestUri[$i] == $scriptName[$i]) {
-		  $i++;
+		if(substr_compare($requestUri, $scriptName, 0, strlen($scriptName))) {
+			$scriptNameClean = dirname($scriptName);
+			$i=0;
+			$len = min(strlen($requestUri), strlen($scriptNameClean));
+			while($i<$len && $requestUri[$i] == $scriptNameClean[$i]) {
+				$i++;
+			}
+			$request = trim(substr($requestUri, $i), '/');			
+		} else {
+			// Compare REQUEST_URI and SCRIPT_NAME as long they match, leave the rest as current request.
+			$i=0;
+			$len = min(strlen($requestUri), strlen($scriptName));
+			while($i<$len && $requestUri[$i] == $scriptName[$i]) {
+			  $i++;
+			}
+			$request = trim(substr($requestUri, $i), '/');
 		}
-		$request = trim(substr($requestUri, $i), '/');
-
+		
 		// Remove the ?-part from the query when analysing controller/metod/arg1/arg2
 		$queryPos = strpos($request, '?');
 		if($queryPos !== false) {
@@ -54,7 +63,8 @@ class CRequest {
 		$this->controller     = $controller;
 		$this->method         = $method;
 		$this->arguments    = $arguments;
-
+		
+		//echo("<pre>" . print_r($this, true) . "</pre>");
 				
 		//ReqUri: /~febj13/phpmvc/kmom02/	 
 		//ScrName:/~febj13/phpmvc/kmom02/index.php )
