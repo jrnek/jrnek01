@@ -1,0 +1,339 @@
+/** --------------------------------------------------------------
+* Reset. http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126
+*
+*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,
+figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,
+time,mark,audio,video{margin:0;padding:0;border:0;font-size:100.01%;font:inherit;vertical-align:baseline;}
+body{line-height:1;}
+ol,ul{list-style: none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+
+/** --------------------------------------------------------------
+* HTML5 elements.
+*
+*/
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
+audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
+audio:not([controls]){display:none;}
+[hidden]{display:none;}
+
+/**----------------------------------------------------------------
+* Basic
+*
+*/
+
+@import '/semantic.gs/grid.less';
+@text-font: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@heading-font: Cambria, Georgia, "Times New Roman", Times, serif;
+@monospace-font = "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+@bg-image: 'img/whitewall.png';
+@font-color: #3E454C;
+@heading-color: #242628;
+@magic-number: 22px; 
+@bg-color: rgba(126, 206, 253, 0.3);
+
+.wrap() {
+	width: @total-width;
+	margin: 0 auto;
+	.clearfix();
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+/**----------------------------------------------------------------
+* General
+*
+*/
+html {
+	background-image: url(@bg-image);
+	background-attachment: fixed;
+}
+body {
+	font: 100.01%/1.375 @text-font;
+	color: @font-color;
+	margin:0;
+	padding:0;
+	&:hover{background:#fff url(img/grid_12_60_20.png) repeat-y center top;}
+}
+
+/**----------------------------------------------------------------
+* Headings | (magic number * 2) ÷ (font size) = (line height)
+* 				(font size) ÷ (basefont size) = (fontsize em);
+*/
+
+.heading-general {
+	font-family: @heading-font;
+	font-weight: normal;
+	color: @heading-color;
+	margin-bottom: @magic-number
+}
+
+h1{
+	.heading-general;
+	font-size: 2.375em; /*38px*/
+	line-height: 1.1579em;
+	margin-bottom: @magic-number - 1px;
+}
+
+h2 {
+	.heading-general;
+	font-size: 1.875em; /*30px*/
+	line-height: 1.4667em;
+	margin-bottom: @magic-number;
+}
+
+h3 {
+	.heading-general;
+	font-size: 1.375em; /*22px*/
+	line-height: 1em;
+}
+
+h4 {
+	.heading-general;
+	font-size: 1.25em; /*20px*/
+	line-height: 1.1em;
+}
+
+h5 {
+	.heading-general;
+	font-size: 1em; /*16px*/
+}
+
+h6 {
+	.heading-general;
+	font-size: 1em; /*16px*/
+}
+
+/**----------------------------------------------------------------
+* Basic elements
+*
+*/
+
+p {
+	margin-bottom: 1.375em;
+}
+
+a{
+	color: #004874;
+	&:hover{ 
+		color: #3584B5;
+		text-decoration: none;
+	}
+	&:focus, &:active{
+		position: relative;
+		top: 1px;
+	}
+}
+
+blockquote{
+	margin-left: 1em;
+	margin-bottom: 1.375em;
+}
+
+strong, dfn{
+	font-weight: bold;
+}
+em, dfn{
+	font-weight: italic;
+}
+pre{
+	margin-bottom: 1.375em;
+	white-space: pre;
+}
+pre,code,tt,.code{
+	font: 1em/1.375 @monospace-font;
+}
+li ul,li ol{
+	margin: 0;
+}
+ul,ol{
+	margin: 0.6875em 1.5em 1.375em 0;
+	padding-left: 1.5em;
+}
+ul{
+	list-style-type: disc;
+}
+ol{
+	list-style-type: decimal;
+}
+dl{
+	margin: 0 0 1.375em 0;
+}
+dl dt{
+	font-weight: bold;
+}
+dd{
+	margin-left: 1.5em;
+}
+
+table{
+	margin-bottom: 1.375em;
+	width: 100%;
+}
+caption{
+	text-align: left;
+	font-style: italic;
+}
+thead{
+	border-bottom: 2px solid #222;
+}
+th{
+	vertical-align: bottom;
+	font-weight: bold;
+	text-align: left;
+}
+th,td{
+	padding: 5px 10px 5px 5px;
+}
+tbody tr:nth-child(even) td, tbody tr.even td {}
+tbody tr{
+	border-bottom: 1px solid #eee;
+	&:hover{
+		color: #000;
+	}
+}
+tfoot{
+	font-style: italic;
+}
+
+
+/**----------------------------------------------------------------
+* Misc
+*
+*/
+
+#logo {
+	.left;
+	padding-right: 1em;
+}
+
+#login {
+	.right;
+}
+
+
+
+/**----------------------------------------------------------------
+* Header
+*
+*/
+#outer-wrap-header{}
+#inner-wrap-header{
+	.wrap();
+	margin-bottom: @magic-number;
+}
+#header{
+	.column(12);
+}
+
+/**----------------------------------------------------------------
+* Flash
+*
+*/
+#outer-wrap-flash{}
+#inner-wrap-flash{
+	.wrap();
+	margin-bottom: @magic-number;
+}
+#flash{
+	.column(12);
+}
+
+/**----------------------------------------------------------------
+* Featured
+*
+*/
+#outer-wrap-featured{}
+#inner-wrap-featured{
+	.wrap();
+	margin-bottom: @magic-number;
+}
+#featured{}
+#featured-first,
+#featured-middle,
+#featured-last{
+	.column(4);
+}
+
+
+/**----------------------------------------------------------------
+* Main
+*
+*/
+#outer-wrap-main{}
+#inner-wrap-main{
+	.wrap();
+	margin-bottom: @magic-number;
+}
+#main{}
+#primary{
+	.column(8);
+}
+#secondary{
+	.column(4);
+}
+
+/**----------------------------------------------------------------
+* Triptych
+*
+*/
+#outer-wrap-triptych{}
+#inner-wrap-triptych{
+	.wrap();
+	margin-bottom: @magic-number;
+}
+#triptych{}
+#triptych-first,
+#triptych-middle,
+#triptych-last{
+	.column(4);
+	height:100%;
+}
+
+/**----------------------------------------------------------------
+* Footer
+*
+*/
+#outer-wrap-footer{}
+#inner-wrap-footer{
+	.wrap();
+	margin-bottom: @magic-number;
+}
+#footer{}
+#footer-one,
+#footer-two,
+#footer-three,
+#footer-four{
+	.column(3);
+}
+
+/**----------------------------------------------------------------
+* Bottom
+*
+*/
+#outer-wrap-bottom{}
+#inner-wrap-bottom{
+	.wrap();
+}
+
+#bottom{
+	text-align: center;
+	.column(12);
+}
+
+
+
+
+

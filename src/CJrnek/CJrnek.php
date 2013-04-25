@@ -84,7 +84,7 @@ class CJrnek implements ISingelton {
 		$themePath = JRNEK_INSTALL_PATH . "/themes/{$themeName}";
 		$themeUrl = $this->request->base_url . "themes/{$themeName}";
 		
-		$this->data['stylesheet'] = "{$themeUrl}/style.css";
+		$this->data['stylesheet'] = "{$themeUrl}/{$this->config['theme']['stylesheet']}";
 		
 		$jr = &$this;
 		include(JRNEK_INSTALL_PATH . '/themes/functions.php');
@@ -94,7 +94,11 @@ class CJrnek implements ISingelton {
 		}
 		extract($this->data);
 		extract($this->views->GetData());
-		include("{$themePath}/default.tpl.php");
+		$templateFile = isset($this->config['theme']['template_file']) ? $this->config['theme']['template_file'] : 'default.tpl.php';
+		if(isset($this->config['theme']['data'])) {
+			extract($this->config['theme']['data']);
+		}
+		include("{$themePath}/{$templateFile}");
 	}
 	
 }

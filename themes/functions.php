@@ -1,6 +1,6 @@
 <?php
 
-function base_url($url) {
+function base_url($url = '') {
 	return CJrnek::Instance()->request->base_url . trim($url, '/');
 }
 
@@ -29,8 +29,8 @@ function get_debug() {
 	return $html;
 }
 
-function render_views() {
-	return CJrnek::Instance()->views->Render();
+function render_views($region = 'default') {
+	return CJrnek::Instance()->views->Render($region);
 }
 
 function get_messages_from_session() {
@@ -58,15 +58,15 @@ function login_menu() {
 	$jr = CJrnek::Instance();
 	$items ="";
 	if($jr->user->IsAuthenticated()) {
-		$items .= "<img style='padding-top: 5px;' src='". get_gravatar(12) . "'/>  | ";
+		$items .= "<div id='login'><img style='padding-top: 5px;' src='". get_gravatar(12) . "'/>  | ";
 		$items .= "<a href='" . create_url('user/profile') . "'>" . 
 					$jr->user->GetAcronym() . "</a> | ";
 		if($jr->user->IsAdmin()) {
 			$items .= "<a href='" . create_url('acp') . "'>acp</a> | ";
 		}
-		$items .= "<a href='" . create_url('user/logout') . "'>Logout</a>";
+		$items .= "<a href='" . create_url('user/logout') . "'>Logout</a></div>";
 	} else {
-		$items = "<a href='". create_url('user/login') . "'>Login</a>";
+		$items = "<div id='login'><a href='". create_url('user/login') . "'>Login</a></div>";
 	}
 	return $items;
 }
@@ -74,4 +74,13 @@ function login_menu() {
 function get_gravatar($size=null) {
 	return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CJrnek::Instance()->user['email'])))
 		. '.jpg?' . ($size ?  "s=$size" : null);
+}
+
+function region_has_content($region='default' /*...*/) {
+	return CJrnek::Instance()->views->RegionHasView(func_get_args());
+}
+
+function theme_url($url) {
+	$jr = CJrnek::Instance();
+	return base_url('themes') . '/' . $jr->config['theme']['name'] . "/$url";
 }

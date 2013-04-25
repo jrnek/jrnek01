@@ -113,7 +113,8 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
 	public static function Filter($data, $filter) {
 		switch($filter) {
 			case 'php': $data = nl2br(makeClickable(eval('?>'.$data))); break;
-			case 'htmlpurify': $data = nl2br(CHTMLPurifier::Purify(makeClickable($data))); break;
+			case 'html':
+			case 'htmlpurify': $data = nl2br(CHTMLPurifier::Purify($data)); break;
 			case 'bbcode': $data = nl2br(bbcode2html(htmlEnt($data))); break;
 			case 'plain': 
 			default: $data = nl2br(makeClickable(htmlent($data))); break;

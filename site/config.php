@@ -17,12 +17,25 @@
 		'content' => array('enabled' => true, 'class' => 'CCContent'),
 		'blog' => array('enabled' => true, 'class' => 'CCBlog'),
 		'page' => array('enabled' => true, 'class' => 'CCPage'),
+		'theme' => array('enabled' => true, 'class' => 'CCTheme'),
 	);
 	
 	$jr->config['theme'] = array(
-		'name' => 'core',
-	);
-	
+		'name' => 'grid',
+		'stylesheet' => 'style.php',
+		'template_file' => 'index.tpl.php',
+		'regions' => array('flash','featured-first','featured-middle','featured-last',
+							'primary','secondary','triptych-first','triptych-middle','triptych-last',
+							'footer-one','footer-two','footer-three','footer-four',	'bottom'),
+		'data' => array(
+					'logo' => 'logo2.png',
+					'logo_width' => 80,
+					'logo_height' => 80,
+					'favicon' => 'logo2.png',
+					'header' => 'jrnek Framework',
+					'footer' => 'jrnek &copy; by Felix',
+					),
+		);
 	$jr->config['base_url'] = null;
 	
 	$jr->config['database'][0]['dsn'] = 'sqlite:' . JRNEK_SITE_PATH . '/data/.ht.sqlite';
