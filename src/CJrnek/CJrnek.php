@@ -37,11 +37,10 @@ class CJrnek implements ISingelton {
 
 	public function FrontControllerRoute() {
 		$this->request = new CRequest($this->config['url_type']);
-		$this->request->Init($this->config['base_url']);
+		$this->request->Init($this->config['base_url'], $this->config['routing']);
 		
 		$controller = $this->request->controller;
 		$method = $this->request->method;
-		//$method = str_replace(array('_', '-'), '', $method);
 		$arguments = $this->request->arguments;
 		
 		$controllerExists = isset($this->config['controllers'][$controller]);
@@ -80,25 +79,71 @@ class CJrnek implements ISingelton {
 	
 	public function ThemeEngineRender() {
 		$this->session->StoreInSession();
-		$themeName = $this->config['theme']['name'];
-		$themePath = JRNEK_INSTALL_PATH . "/themes/{$themeName}";
-		$themeUrl = $this->request->base_url . "themes/{$themeName}";
+		//$themeName = $this->config['theme']['name'];
+		//$themePath = JRNEK_INSTALL_PATH . "/themes/{$themeName}";
+		//$themeUrl = $this->request->base_url . "themes/{$themeName}";
+		$themePath  = JRNEK_INSTALL_PATH . '/' . $this->config['theme']['path'];
+		$themeUrl   = $this->request->base_url . $this->config['theme']['path'];
 		
-		$this->data['stylesheet'] = "{$themeUrl}/{$this->config['theme']['stylesheet']}";
+		$parentPath = null;
+		$parentUrl = null;
+		if(isset($this->config['theme']['parent'])) {
+			$parentPath = JRNEK_INSTALL_PATH . '/' . $this->config['theme']['parent'];
+			$parentUrl  = $this->request->base_url . $this->config['theme']['parent'];
+		}
+		
+		//$this->data['stylesheet'] = "{$themeUrl}/{$this->config['theme']['stylesheet']}";
+		$this->data['stylesheet'] = $this->config['theme']['stylesheet'];
+		
+		$this->themeUrl = $themeUrl;
+		$this->themeParentUrl = $parentUrl;
+		
+		if(is_array($this->config['theme']['menu_to_region'])) {
+			foreach($this->config['theme']['menu_to_region'] as $key => $val) {
+				$this->views->AddString($this->DrawMenu($key), null, $val);
+			}
+		}
 		
 		$jr = &$this;
 		include(JRNEK_INSTALL_PATH . '/themes/functions.php');
-		$functionPath = "{$themePath}/functions.php";
-		if(is_file($functionPath)) {
-			include $functionPath;
+		if($parentPath) {
+			if(is_file("{$parentPath}/functions.php")) {
+				include "{$parentPath}/functions.php";
+			}
+		}
+		if(is_file("{$themePath}/functions.php")) {
+			include "{$themePath}/functions.php";
 		}
 		extract($this->data);
 		extract($this->views->GetData());
-		$templateFile = isset($this->config['theme']['template_file']) ? $this->config['theme']['template_file'] : 'default.tpl.php';
 		if(isset($this->config['theme']['data'])) {
 			extract($this->config['theme']['data']);
 		}
-		include("{$themePath}/{$templateFile}");
+		$templateFile = isset($this->config['theme']['template_file']) ? $this->config['theme']['template_file'] : 'default.tpl.php';
+		if(is_file("{$themePath}/{$templateFile}")) {
+			include("{$themePath}/{$templateFile}");
+		} else if(is_file("{$parentPath}/{$templateFile}")) {
+			include("{$parentPath}/{$templateFile}");
+		} else {
+			throw new Exception('No such template file.');
+		}
+
+	}
+
+	public function DrawMenu($menu) {
+		$html = null;
+		if(isset($this->config['menus'][$menu])) {
+			foreach($this->config['menus'][$menu] as $key => $val) {
+				$active = null;
+				if($val == $this->request->controller) {
+					$active = " id='active'";
+				}
+				$html .= "<a {$active} href='". $this->request->CreateUrl($val) . "'>". ucfirst($key) . "</a>";
+			}
+		} else {
+			throw new Exception('No such menu.');
+		}     
+		return $html;
 	}
 	
 }

@@ -63,7 +63,7 @@ class CViewContainer {
 					include($view['file']);
 					break;
 				case 'string':
-					extract($view['variables']);
+					if(!empty($view['variables'])){ extract($view['variables']); }
 					echo  $view['string'];
 					break;
 			}

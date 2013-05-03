@@ -1,6 +1,6 @@
 <?php
 
-class CMGuestbook extends CObject implements IHasSQL {
+class CMGuestbook extends CObject implements IHasSQL, IModule {
 
 	public function __construct() {
 		parent::__construct();
@@ -18,6 +18,25 @@ class CMGuestbook extends CObject implements IHasSQL {
 		}
 		return $queries[$key];
    	}
+	
+	public function Manage($action=null) {
+		switch($action) {
+			case 'install':
+				try{
+					$this->db->ExecuteQuery(self::SQL('create table guestbook'));
+					//$this->session->AddMessage('info', 'Successfully created database table');
+					return array('success', 'Successfully created the database tables');
+				} catch(Exception $e) {
+					$error = "Failed to open database: " . $this->config['database'][0]['dsn'] . "<br/>" . $e;
+					$this->session->AddMessage('error', $error);
+				}
+			break;
+			
+			default:
+				throw new Exception($action .' is not supported from this method');
+				break;
+		}
+	}
 	
 	public function Init() {
 		try{

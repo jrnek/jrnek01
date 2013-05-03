@@ -1,6 +1,6 @@
 <?php
 
-class CMContent extends CObject implements IHasSQL, ArrayAccess {
+class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 	public $data = array();
 
@@ -42,6 +42,7 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
 			'drop table content' => "DROP TABLE IF EXISTS Content",
 			'insert to content' => "INSERT INTO Content (key, type, title, data, iduser, filter) Values(?,?,?,?,?,?);",
 			'update content' => "UPDATE Content SET key=?, type=?, title=?, data=?, filter=?, updated=datetime('now') WHERE id=?;",
+			'delete content' => "DELETE FROM Content WHERE id =?;",
 			'select * by id' => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.id=?;',
 			'select * by key' => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.key=?;',
 			'select *' => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id;',
@@ -52,6 +53,25 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
 		}
 		return $queries[$key]; 
    	}
+	
+	public function Manage($action=null) {
+		switch($action) {
+			case 'install':
+				try{ 
+					$this->db->ExecuteQuery(self::SQL('drop table content'));
+					$this->db->ExecuteQuery(self::SQL('create table content'));
+					$this->db->ExecuteQuery(self::SQL('insert to content'), array('hello-world', 'post', 'Hello World!', 'Test post!', 2, 'plain'));
+					//$this->session->AddMessage('info', 'Successfully loaded database and created table content');
+					return array('success', 'Successfully created the database tables and created a default "Hello World" blogpost!');
+				} catch (Exception $e) {
+					die("Something went wrong when trying to initiate database table Content\n" . $e);
+				}
+				break;
+			default:
+				throw new Exception($action .' is not supported from this method');
+				break;
+		}
+	}
 	
 	public function Init() {
 		try{ 
@@ -82,6 +102,13 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
 			$this->session->AddMessage('error', "Failed to {$msg} content '{$this['key']}'.");
 		}
 		return $rowcount === 1;
+	}
+	
+	public function Delete() {
+		if($this['id']) {
+			$this->db->ExecuteQuery(self::SQL('delete content'), array($this['id']));
+			$this->session->AddMessage('success', "Successfullt deleted content");
+		}
 	}
 	
 	public function LoadById($id) {

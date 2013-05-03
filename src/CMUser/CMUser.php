@@ -1,6 +1,6 @@
 <?php
 
-class CMUser extends CObject implements IHasSQL, ArrayAccess {
+class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 	public $profile = array();
 	
@@ -59,7 +59,55 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
 		}
 		return $queries[$key]; 
    	}
-	
+	public function Manage($action=null) {
+		switch($action) {
+			case 'install':
+				try{
+					//Create tables
+					$this->db->ExecuteQuery(self::SQL('drop table user'));
+					$this->db->ExecuteQuery(self::SQL('drop table groups'));
+					$this->db->ExecuteQuery(self::SQL('drop table user2groups'));
+					$this->db->ExecuteQuery(self::SQL('create table user'));
+					$this->db->ExecuteQuery(self::SQL('create table groups'));
+					$this->db->ExecuteQuery(self::SQL('create table user2groups'));
+					
+					//$jr = CJrnek::Instance();
+					//Create admin user
+					$pass = $this->CreatePassword('admin');
+					$this->db->ExecuteQuery(self::SQL('insert into user'), array('admin', 'Adminstrator', "admin@jrnek.com",
+																$this->config['hashing_algorithm'], $pass['password'], $pass['salt']));
+					$adminuserId = $this->db->LastInsertId();
+					
+					//Create test user
+					$pass = $this->CreatePassword('doe');
+					$this->db->ExecuteQuery(self::SQL('insert into user'), array('doe', 'jrnek Test user', "doe@jrnek.com",
+																$this->config['hashing_algorithm'], $pass['password'], $pass['salt']));
+					$userId = $this->db->LastInsertId();
+					
+					//Create Admin group
+					$this->db->ExecuteQuery(self::SQL('insert into groups'), array('admin', 'Administrators'));
+					$admingroupId = $this->db->LastInsertId();
+					
+					//Create normal user group
+					$this->db->ExecuteQuery(self::SQL('insert into groups'), array('user', 'Normal user'));
+					$usergroupId = $this->db->LastInsertId();
+					
+					//Create connection between users and groups
+					$this->db->ExecuteQuery(self::SQL('insert into user2groups'), array($adminuserId, $admingroupId));
+					$this->db->ExecuteQuery(self::SQL('insert into user2groups'), array($adminuserId, $usergroupId));
+					$this->db->ExecuteQuery(self::SQL('insert into user2groups'), array($userId, $usergroupId));
+					//$this->session->AddMessage('info', 'Successfully loaded and filled database tables user');
+					return array('success', 'Successfully created the database tables and created a default admin user as admin:admin and an ordinary user as doe:doe.');
+				} catch(Exception $e) {
+					$error = "Failed to open database: " . $this->config['database'][0]['dsn'] . "<br/>" . $e;
+					$this->session->AddMessage('error', $error);
+				}
+				break;
+			default:
+				throw new Exception($action .' is not supported from this method');
+				break;
+		}
+	}
 	public function Init() {
 		try{
 			//Create tables
@@ -148,7 +196,7 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
 		$this->db->ExecuteQuery(self::SQL('insert into user'), array($acronym, $name, $email,
 														$this->config['hashing_algorithm'], $pass['password'], $pass['salt']));
 		$userId = $this->db->LastInsertId();
-		$this->db->ExecuteQuery(self::SQL('insert into user2groups'), array($userId, 1));
+		$this->db->ExecuteQuery(self::SQL('insert into user2groups'), array($userId, 2));
 		if($this->db->RowCount() == 0) {
 			$this->session->AddMessage('error', "Failed to create user.");
 			return false;

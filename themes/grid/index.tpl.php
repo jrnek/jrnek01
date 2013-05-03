@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title><?=$title?></title>
-	<link rel='shortcut icon' href='<?=theme_url('img/' . $favicon)?>'/>
-	<link rel="stylesheet" href="<?=$stylesheet?>">
+	<link rel='shortcut icon' href='<?=theme_parent_url('img/' . $favicon)?>'/>
+	<link rel="stylesheet" href="<?=theme_url($stylesheet)?>">
 	<?php if(isset($inline_style)): ?><style><?=$inline_style?></style><?php endif?>
 </head>
 <body>
@@ -12,9 +12,10 @@
 <div id="outer-wrap-header">
 	<div id="inner-wrap-header">
 		<div id="header">
-			<a href='<?=base_url()?>'><img id='logo' src='<?=theme_url('img/'. $logo)?>' alt='logo' width='<?=$logo_width?>' height='<?=$logo_height?>' /></a>
+			<a href='<?=base_url()?>'><img id='logo' src='<?=theme_parent_url('img/'. $logo)?>' alt='logo' width='<?=$logo_width?>' height='<?=$logo_height?>' /></a>
 			<?=login_menu()?>
-			<h1><?=$header?></h1>
+			<h1 id='title'><?=$header?></h1>
+			<nav id='head-nav'><?=render_views('navbar')?></nav>
 		</div>
 	</div>
 </div>
@@ -52,6 +53,7 @@
 	<div id="inner-wrap-main">
 		<div id="main">
 			<div id="primary">
+				<?=get_messages_from_session()?>
 				&nbsp;<?=render_views('primary')?> 
 			</div>
 			<div id="secondary">

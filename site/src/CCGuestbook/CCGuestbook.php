@@ -14,9 +14,9 @@ class CCGuestbook extends CObject implements IController{
 	public function Index() {
 		$this->views->SetTitle($this->pageTitle);
 		$this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
-			'entries' => $this->guestbookModel->ReadAll(),
-			'action' => $this->request->CreateUrl('', 'handler'),
-		));
+			'entries' => $this->guestbookModel->ReadAll()), 'primary');			
+		$this->views->AddInclude(__DIR__ . '/form.tpl.php', array(
+			'action' => $this->request->CreateUrl('', 'handler')), 'secondary');
 	}
 	
 	public function Handler() {
@@ -27,7 +27,6 @@ class CCGuestbook extends CObject implements IController{
 		} elseif(isset($_POST['create'])) {
 			$this->guestbookModel->Init();
 		}
-		//header('Location: ' . $this->request->CreateUrl('guestbook'));
 		$this->RedirectTo($this->request->CreateUrl($this->request->controller));
 	}
 }

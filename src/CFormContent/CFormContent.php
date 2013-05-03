@@ -17,6 +17,9 @@ class CFormContent extends CForm {
 		$this->AddElement(new CFormElementText('type', array('value' => $content['type'])));
 		$this->AddElement(new CFormElementText('filter', array('value' => $content['filter'])));
 		$this->AddElement(new CFormElementSubmit($mode, array('callback'=>array($this, 'DoSave'), 'callback-args'=>array($content))));
+		if($mode == 'edit') {
+			$this->AddElement(new CFormElementSubmit('delete', array('callback' => array($this, 'DoDelete'), 'callback-args' => array($content))));
+		}
 		$this->SetValidation('title', array('not_empty'));
 		$this->SetValidation('key', array('not_empty'));
 	}
@@ -29,6 +32,11 @@ class CFormContent extends CForm {
 		$content['type']  = $form['type']['value'];
 		$content['filter'] = $form['filter']['value'];
 		return $content->Save();
+	}
+	
+	public function DoDelete($form, $content) {
+		$content['id'] = $form['id']['value'];
+		return $content->Delete();
 	}
   	
 

@@ -9,9 +9,10 @@ class CRequest {
 		$this->querystringUrl = $urlType= 2 ? true : false;
 	}
 	
-	public function Init($baseUrl = null) {
+	public function Init($baseUrl = null, $routing=null) {
 		$requestUri = $_SERVER['REQUEST_URI'];
-		$scriptName = $_SERVER['SCRIPT_NAME'];    
+		$scriptName = $_SERVER['SCRIPT_NAME'];  
+		$request = "";
 		if(substr_compare($requestUri, $scriptName, 0, strlen($scriptName))) {
 			$scriptNameClean = dirname($scriptName);
 			$i=0;
@@ -20,7 +21,7 @@ class CRequest {
 				$i++;
 			}
 			$request = trim(substr($requestUri, $i), '/');			
-		} else {
+   		} else {
 			// Compare REQUEST_URI and SCRIPT_NAME as long they match, leave the rest as current request.
 			$i=0;
 			$len = min(strlen($requestUri), strlen($scriptName));
@@ -28,6 +29,10 @@ class CRequest {
 			  $i++;
 			}
 			$request = trim(substr($requestUri, $i), '/');
+		}
+		
+		if(is_array($routing) && isset($routing[$request]) && $routing[$request]['enabled']) {
+			$request = $routing[$request]['url'];
 		}
 		
 		// Remove the ?-part from the query when analysing controller/metod/arg1/arg2

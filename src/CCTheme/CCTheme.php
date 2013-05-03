@@ -36,6 +36,6 @@ class CCTheme extends CObject implements IController {
 	
 	public function TestPage() {
 		$this->views->SetTitle('TestPage');
-		$this->views->AddInclude(__DIR__ . '/h1h6.tpl.php', array(), 'primary');	
+		$this->views->AddInclude(__DIR__ . '/h1h6.tpl.php', array(), 'primary');
 	}
 }

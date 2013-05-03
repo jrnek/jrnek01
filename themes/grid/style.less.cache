@@ -1,4 +1,5 @@
-a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:6533:"html,
+a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:7789:"@import url(http://fonts.googleapis.com/css?family=Russo+One&css);
+html,
 body,
 div,
 span,
@@ -154,6 +155,7 @@ body:after {
 html {
   background-image: url('img/whitewall.png');
   background-attachment: fixed;
+  overflow-y: scroll;
 }
 body {
   font: 100.01%/1.375 Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -161,17 +163,14 @@ body {
   margin: 0;
   padding: 0;
 }
-body:hover {
-  background: #fff url(img/grid_12_60_20.png) repeat-y center top;
-}
 .heading-general {
-  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: normal;
   color: #242628;
   margin-bottom: 22px;
 }
 h1 {
-  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: normal;
   color: #242628;
   margin-bottom: 22px;
@@ -179,8 +178,13 @@ h1 {
   line-height: 1.1579em;
   margin-bottom: 21px;
 }
+#title {
+  padding-top: 22px;
+  font-family: 'Russo One', sans-serif;
+  margin-bottom: 0;
+}
 h2 {
-  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: normal;
   color: #242628;
   margin-bottom: 22px;
@@ -189,7 +193,7 @@ h2 {
   margin-bottom: 22px;
 }
 h3 {
-  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: normal;
   color: #242628;
   margin-bottom: 22px;
@@ -197,7 +201,7 @@ h3 {
   line-height: 1em;
 }
 h4 {
-  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: normal;
   color: #242628;
   margin-bottom: 22px;
@@ -205,14 +209,14 @@ h4 {
   line-height: 1.1em;
 }
 h5 {
-  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: normal;
   color: #242628;
   margin-bottom: 22px;
   font-size: 1em;
 }
 h6 {
-  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: normal;
   color: #242628;
   margin-bottom: 22px;
@@ -248,6 +252,7 @@ dfn {
 pre {
   margin-bottom: 1.375em;
   white-space: pre;
+  word-wrap: break-word;
 }
 pre,
 code,
@@ -314,6 +319,26 @@ tfoot {
 }
 #login {
   float: right;
+}
+#head-nav {
+  padding-left: 132px;
+  padding-top: 5.5px;
+}
+#head-nav a {
+  text-decoration: none;
+  font-family: 'Russo One', sans-serif;
+  color: #3E454C;
+  margin-left: 4.4px;
+  margin-right: 4.4px;
+}
+#head-nav a:hover {
+  border-bottom: 3px solid #2E7BAC;
+}
+a#active {
+  border-bottom: 3px solid #2E7BAC;
+}
+#outer-wrap-header {
+  margin-top: 22px;
 }
 #inner-wrap-header {
   width: 960px;
@@ -469,4 +494,77 @@ tfoot {
   width: 940px;
   margin: 0 10px;
 }
-";s:5:"files";a:2:{s:74:"/home/saxon/students/20131/febj13/www/phpmvc/kmom06/themes/grid/style.less";i:1366892337;s:85:"/home/saxon/students/20131/febj13/www/phpmvc/kmom06/themes/grid/semantic.gs/grid.less";i:1366876757;}s:7:"updated";i:1366892338;}
+input,
+textarea {
+  font: inherit;
+}
+input[readonly] {
+  color: #666;
+}
+label {
+  font-size: smaller;
+}
+.validation-failed {
+  border: 2px solid red;
+}
+.validation-message {
+  color: red;
+  font-size: smaller;
+}
+.form-action-link {
+  font-size: smaller;
+}
+.content-edit input[type=text] {
+  width: 30em;
+}
+.content-edit textarea {
+  width: 40em;
+  height: 15em;
+}
+.error,
+.alert,
+.warning,
+.notice,
+.success,
+.info {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 2px solid #ddd;
+}
+.error,
+.alert {
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4;
+}
+.notice,
+.warning {
+  background: #fff6bf;
+  color: #514721;
+  border-color: #ffd324;
+}
+.success {
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
+}
+.info {
+  background: #d5edf8;
+  color: #205791;
+  border-color: #92cae4;
+}
+.error a,
+.alert a {
+  color: #8a1f11;
+}
+.notice a,
+.warning a {
+  color: #514721;
+}
+.success a {
+  color: #264409;
+}
+.info a {
+  color: #205791;
+}
+";s:5:"files";a:2:{s:74:"/home/saxon/students/20131/febj13/www/phpmvc/kmom07/themes/grid/style.less";i:1366924024;s:85:"/home/saxon/students/20131/febj13/www/phpmvc/kmom07/themes/grid/semantic.gs/grid.less";i:1366904317;}s:7:"updated";i:1366924025;}

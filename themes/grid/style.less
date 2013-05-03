@@ -29,9 +29,11 @@ audio:not([controls]){display:none;}
 */
 
 @import '/semantic.gs/grid.less';
+@import url(http://fonts.googleapis.com/css?family=Russo+One&css);
 @text-font: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 @heading-font: Cambria, Georgia, "Times New Roman", Times, serif;
 @monospace-font = "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+@header-font: 'Russo One', sans-serif;
 @bg-image: 'img/whitewall.png';
 @font-color: #3E454C;
 @heading-color: #242628;
@@ -59,22 +61,24 @@ audio:not([controls]){display:none;}
 html {
 	background-image: url(@bg-image);
 	background-attachment: fixed;
+	overflow-y: scroll;
 }
 body {
 	font: 100.01%/1.375 @text-font;
 	color: @font-color;
 	margin:0;
 	padding:0;
-	&:hover{background:#fff url(img/grid_12_60_20.png) repeat-y center top;}
+	//&:hover{background:#fff url(img/grid_12_60_20.png) repeat-y center top;}
 }
 
 /**----------------------------------------------------------------
 * Headings | (magic number * 2) ÷ (font size) = (line height)
 * 				(font size) ÷ (basefont size) = (fontsize em);
 */
-
+  
 .heading-general {
-	font-family: @heading-font;
+	//font-family: @heading-font;
+	font-family: @header-font;
 	font-weight: normal;
 	color: @heading-color;
 	margin-bottom: @magic-number
@@ -85,6 +89,12 @@ h1{
 	font-size: 2.375em; /*38px*/
 	line-height: 1.1579em;
 	margin-bottom: @magic-number - 1px;
+}
+
+#title {
+	padding-top: @magic-number;
+	font-family: @header-font;
+	margin-bottom: 0;
 }
 
 h2 {
@@ -137,6 +147,7 @@ a{
 	}
 }
 
+
 blockquote{
 	margin-left: 1em;
 	margin-bottom: 1.375em;
@@ -151,6 +162,7 @@ em, dfn{
 pre{
 	margin-bottom: 1.375em;
 	white-space: pre;
+	word-wrap: break-word;
 }
 pre,code,tt,.code{
 	font: 1em/1.375 @monospace-font;
@@ -223,13 +235,37 @@ tfoot{
 	.right;
 }
 
+#head-nav{
+	padding-left: @magic-number*6;
+	padding-top: @magic-number/4;
+}
+
+#head-nav a{
+	text-decoration: none;
+	font-family: @header-font;
+	color: @font-color;
+	margin-left: @magic-number/5;
+	margin-right: @magic-number/5;
+	
+	&:hover{
+		//background: darken(white, 2%);
+		border-bottom: 3px solid #2E7BAC;
+	}
+}
+
+a#active{
+	border-bottom: 3px solid #2E7BAC;
+}
+
+
+
 
 
 /**----------------------------------------------------------------
 * Header
 *
 */
-#outer-wrap-header{}
+#outer-wrap-header{margin-top: @magic-number;}
 #inner-wrap-header{
 	.wrap();
 	margin-bottom: @magic-number;
@@ -333,6 +369,35 @@ tfoot{
 	.column(12);
 }
 
+/** --------------------------------------------------------------
+* Forms
+*/
+input,textarea{font:inherit;}
+input[readonly]{color:#666;}
+label{font-size:smaller;}
+.validation-failed{border:2px solid red;}
+.validation-message{color:red;font-size:smaller;}
+.form-action-link{font-size:smaller;}
+
+.content-edit{
+  input[type=text]{width:30em;}
+  textarea{width:40em;height:15em;}
+}
+
+/** --------------------------------------------------------------
+* User feedback message wrappers.
+*/
+.error, .alert, .warning, .notice, .success, .info { 
+padding: 0.8em; margin-bottom: 1em; border: 2px solid #ddd; }
+
+.error, .alert { background: #fbe3e4; color: #8a1f11; border-color: #fbc2c4; }
+.notice, .warning { background: #fff6bf; color: #514721; border-color: #ffd324; }
+.success       { background: #e6efc2; color: #264409; border-color: #c6d880; }
+.info          { background: #d5edf8; color: #205791; border-color: #92cae4; }
+.error a, .alert a { color: #8a1f11; }
+.notice a, .warning a { color: #514721; }
+.success a         { color: #264409; }
+.info a            { color: #205791; }
 
 
 

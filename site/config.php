@@ -8,6 +8,11 @@
 	$jr->config['charEncode'] = 'UTF-8';
 	$jr->config['lang'] = 'en';
 	
+	/**
+	* Define all available controllers
+	*
+	* Define all the controllers and what class they represent.
+	*/
 	$jr->config['controllers'] = array(
 		'index' => array('enabled' => true, 'class' =>  'CCIndex'), 
 		'developer' => array('enabled' => true,'class' => 'CCDeveloper'),
@@ -18,15 +23,52 @@
 		'blog' => array('enabled' => true, 'class' => 'CCBlog'),
 		'page' => array('enabled' => true, 'class' => 'CCPage'),
 		'theme' => array('enabled' => true, 'class' => 'CCTheme'),
+		'modules' => array('enabled' => true, 'class' => 'CCModules'),
 	);
 	
+	/**
+	* Define a routing table for urls.
+	*
+	* Route custom urls to a defined controller/method/arguments
+	*/
+	$jr->config['routing'] = array(
+		'home' => array('enabled' => true, 'url' => 'index/index'),
+		'bloggen' => array('enabled' => true, 'url' => 'blog/index'),
+		);
+	
+	/**
+	* Define the controllers that shouldnt be displayed in main menu
+	*
+	* Add the name to the controllers that shouldnt be displayed in
+	* main menu
+	*/
+	$jr->config['exclude_from_menu'] = array('acp');
+	
+	$jr->config['menus'] = array(
+		'navbar' => array(
+			'home' => 'index',
+			'modules' => 'modules',
+			'content' => 'content',
+			'guestbook' => 'guestbook',
+			'blog' => 'blog',
+		),
+	);
+	
+	/**
+	* Define the current theme
+	*
+	* Define the current theme, with stylesheet, regions and basic
+	* data.
+	*/
 	$jr->config['theme'] = array(
-		'name' => 'grid',
-		'stylesheet' => 'style.php',
+		'path' => 'site/themes/mytheme',
+		'parent' => 'themes/grid',
+		'stylesheet' => 'style.css',
 		'template_file' => 'index.tpl.php',
-		'regions' => array('flash','featured-first','featured-middle','featured-last',
+		'regions' => array('navbar', 'flash','featured-first','featured-middle','featured-last',
 							'primary','secondary','triptych-first','triptych-middle','triptych-last',
 							'footer-one','footer-two','footer-three','footer-four',	'bottom'),
+		'menu_to_region' => array('navbar' => 'navbar'),
 		'data' => array(
 					'logo' => 'logo2.png',
 					'logo_width' => 80,
@@ -57,14 +99,21 @@
 	*/
 	$jr->config['debug']['show'] = false;
 	
-	//Set what info to display in debug
+	/**
+	* Set what information should be displayd in debug
+	*/
 	$jr->config['debug']['jrnek'] = false;
 	$jr->config['debug']['db-num-queries'] = true;
 	$jr->config['debug']['db-queries'] = true;
 	
-	//Set hashing alogrithm: plain, md5salt, md5, sha1salt, sha1.
+	/**
+	* Set hashing alogrithm: plain, md5salt, md5, sha1salt, sha1.
+	*/
 	$jr->config['hashing_algorithm'] = 'sha1salt';
 	
+	/**
+	* Set to true if visitors should be able to create accounts.
+	*/
 	$jr->config['create_new_users'] = true;
 	
 	
