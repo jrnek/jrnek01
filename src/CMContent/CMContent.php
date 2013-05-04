@@ -6,7 +6,7 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 	public function __construct($id = null) {
 		parent::__construct();
-		if(is_numeric($id)) {
+		if($id != null) {
 			$this->LoadById($id);
 		} else {
 			$this->data = array();
@@ -44,7 +44,7 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 			'update content' => "UPDATE Content SET key=?, type=?, title=?, data=?, filter=?, updated=datetime('now') WHERE id=?;",
 			'delete content' => "DELETE FROM Content WHERE id =?;",
 			'select * by id' => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.id=?;',
-			'select * by key' => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.key=?;',
+			'select * by key' =>'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.key=?;',
 			'select *' => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id;',
 			'select * where' => "SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE type=? ORDER BY {$order} {$orderOrder};",
 		);
@@ -114,8 +114,14 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 	public function LoadById($id) {
 		$content = $this->db->ExecuteAndFetch(self::SQL('select * by id'), array($id));
 		if(empty($content)) {
-			$this->session->AddMessage('error', "Cannot load content with id: '$id'");	
-			return false;
+			$content = $this->db->ExecuteAndFetch(self::SQL('select * by key'), array($id));
+			if(empty($content)) {
+				//$this->session->AddMessage('error', "Cannot load content with id: '$id'");	
+				return false;
+			} else {
+				$this->data = $content[0];	
+				return true;
+			}		
 		} else {
 			$this->data = $content[0];	
 			return true;

@@ -45,12 +45,11 @@
 	$jr->config['exclude_from_menu'] = array('acp');
 	
 	$jr->config['menus'] = array(
-		'navbar' => array(
+		'navmenu' => array(
 			'home' => 'index',
-			'modules' => 'modules',
 			'content' => 'content',
-			'guestbook' => 'guestbook',
 			'blog' => 'blog',
+			'page' => 'page',
 		),
 	);
 	
@@ -68,7 +67,7 @@
 		'regions' => array('navbar', 'flash','featured-first','featured-middle','featured-last',
 							'primary','secondary','triptych-first','triptych-middle','triptych-last',
 							'footer-one','footer-two','footer-three','footer-four',	'bottom'),
-		'menu_to_region' => array('navbar' => 'navbar'),
+		'menu_to_region' => array('navmenu' => 'navbar'),
 		'data' => array(
 					'logo' => 'logo2.png',
 					'logo_width' => 80,

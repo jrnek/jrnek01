@@ -15,6 +15,7 @@ class CCPage extends CObject implements IController {
 	
 	public function View($id) {
 		$content = new CMContent($id);
+		//echo "<pre>" . print_r($this->request, true) . "</pre>";
 		$this->views->SetTitle($content['title']);
 		$this->views->AddInclude(__DIR__ . '/index.tpl.php', array('content' => $content));
 	}

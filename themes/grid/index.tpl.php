@@ -12,7 +12,7 @@
 <div id="outer-wrap-header">
 	<div id="inner-wrap-header">
 		<div id="header">
-			<a href='<?=base_url()?>'><img id='logo' src='<?=theme_parent_url('img/'. $logo)?>' alt='logo' width='<?=$logo_width?>' height='<?=$logo_height?>' /></a>
+			<a href='<?=base_url()?>'><img id='logo' src='<?=theme_url($logo)?>' alt='logo' width='<?=$logo_width?>' height='<?=$logo_height?>' /></a>
 			<?=login_menu()?>
 			<h1 id='title'><?=$header?></h1>
 			<nav id='head-nav'><?=render_views('navbar')?></nav>

@@ -135,7 +135,9 @@ class CJrnek implements ISingelton {
 		if(isset($this->config['menus'][$menu])) {
 			foreach($this->config['menus'][$menu] as $key => $val) {
 				$active = null;
-				if($val == $this->request->controller) {
+				if($val == $this->request->controller && !in_array($this->request->request, $this->config['menus'][$menu]))				{
+					$active = " id='active'";
+				} else if($val == $this->request->request) {
 					$active = " id='active'";
 				}
 				$html .= "<a {$active} href='". $this->request->CreateUrl($val) . "'>". ucfirst($key) . "</a>";
