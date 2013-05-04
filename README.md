@@ -16,7 +16,7 @@ Om du inte har valt att lägga filerna i root på din webserver måste du ändra
 För att databasen ska fungera måste katalogen site/data vara skrivbar av webservern
 om inget annat använd <code>cd jrnek chmod 777 site/data</code>
 
-## Initierad
+## Initiera
 Nu bör du kunna peka webläsaren till jrnek framework! Du behöver dock installera 
 några moduler för att allt ska fungera som det ska. Följ länken under Installation som 
 heter modules/install. Den initierar databasen och skapar bla. två användare: admin/admin och doe/doe
@@ -74,6 +74,6 @@ För att skapa en sida följer du samma steg som för att skapa en blog (se ovan
 Men som "Type" väljer du page. Dina sidor kan du sedan se via menyvalet "Page".
 Vill du att sidan som du skapade ska finnas med som ett val i huvudmenyn kan du
 enkelt lägga till den under <code>$jr->config['menus']</code> se ovan. Som value
-använder du <code>'page/view/keyTillSidan'</key> key till sidan är det som du
+använder du <code>'page/view/keyTillSidan'</code> key till sidan är det som du
 skrev in under "Key" när du skapade den.
 
